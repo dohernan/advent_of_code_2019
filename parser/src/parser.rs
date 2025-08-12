@@ -5,7 +5,7 @@ use std::path::Path;
 pub struct Parser {}
 
 impl Parser {
-    pub fn from_txt(path: &Path) -> Vec<i32> {
+    pub fn from_txt(path: &Path) -> Vec<i64> {
         let file = File::open(path).expect("File coudlnt be opened");
         let reader = BufReader::new(file);
 
@@ -19,7 +19,7 @@ impl Parser {
         data
     }
 
-    pub fn from_txt_signed(path: &Path) -> Vec<i32> {
+    pub fn from_txt_signed(path: &Path) -> Vec<i64> {
         println!("{}", path.display());
         let file = File::open(path).expect("File coudlnt be opened");
         let reader = BufReader::new(file);

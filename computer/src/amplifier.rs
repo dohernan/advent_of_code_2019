@@ -5,7 +5,7 @@ use std::rc::Rc;
 #[derive(Default)]
 pub struct Amplifier {
     computer: Computer,
-    phase_setting: Rc<RefCell<i32>>,
+    phase_setting: Rc<RefCell<i64>>,
 }
 
 #[derive(Default)]
@@ -14,10 +14,10 @@ pub struct AmplificationCircuit {
     phase_settings: PhaseSettings,
 }
 
-pub type PhaseSettings = Vec<Rc<RefCell<i32>>>;
+pub type PhaseSettings = Vec<Rc<RefCell<i64>>>;
 
-impl From<Vec<i32>> for AmplificationCircuit {
-    fn from(program: Vec<i32>) -> Self {
+impl From<Vec<i64>> for AmplificationCircuit {
+    fn from(program: Vec<i64>) -> Self {
         let mut result: AmplificationCircuit = AmplificationCircuit::default();
         let phase_settings: PhaseSettings = vec![
             Rc::new(RefCell::new(0)),
@@ -38,7 +38,7 @@ impl From<Vec<i32>> for AmplificationCircuit {
 }
 
 impl AmplificationCircuit {
-    pub fn set_phase_setting(&mut self, phase_settings: Vec<i32>) {
+    pub fn set_phase_setting(&mut self, phase_settings: Vec<i64>) {
         for (i, setting) in phase_settings.iter().enumerate() {
             *self.phase_settings[i].borrow_mut() = *setting;
         }
@@ -48,12 +48,12 @@ impl AmplificationCircuit {
                 .set_phase_setting(*amplifier.phase_setting.borrow());
         }
     }
-    pub fn process(&mut self) -> i32 {
+    pub fn process(&mut self) -> i64 {
         let mut input_signal = 0;
         let mut last_running = true;
         while last_running {
             for amplifier in self.amplifiers.iter_mut() {
-                amplifier.computer.process(input_signal);
+                amplifier.computer.process(input_signal, true);
                 input_signal = amplifier.computer.get_output();
             }
             last_running = !self.amplifiers[4].computer.is_finished();

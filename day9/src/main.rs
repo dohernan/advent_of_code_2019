@@ -1,23 +1,13 @@
-use computer::amplifier::AmplificationCircuit;
-use itertools::Itertools;
+use computer::Computer;
 use parser::Parser;
 use std::path::Path; // 0.8.2
 
 static FILE_PATH: &str = "day9/data/input.txt";
 
 fn main() {
-    let amplification_program: Vec<i32> = Parser::from_txt_signed(Path::new(FILE_PATH));
+    let reseted_memory: Vec<i64> = Parser::from_txt_signed(Path::new(FILE_PATH));
 
-    let phase_settings_vector = vec![5, 6, 7, 8, 9];
-    let permutations = phase_settings_vector.into_iter().permutations(5).unique();
-
-    let mut outputs: Vec<i32> = vec![];
-    for permutation in permutations {
-        //dbg!(&permutation);
-        let mut amplification_circuit = AmplificationCircuit::from(amplification_program.clone());
-        amplification_circuit.set_phase_setting(permutation);
-        outputs.push(amplification_circuit.process());
-    }
-    outputs.sort();
-    println!("{}", outputs[outputs.len() - 1]);
+    let mut code = Computer::new(reseted_memory);
+    code.process(2, false);
+    //println!("{}", code.get_output());
 }
