@@ -3,6 +3,13 @@
 version = 4
 
 [[package]]
+name = "computer"
+version = "0.1.0"
+dependencies = [
+ "text_io",
+]
+
+[[package]]
 name = "day1"
 version = "0.1.0"
 dependencies = [
@@ -13,9 +20,48 @@ dependencies = [
 name = "day2"
 version = "0.1.0"
 dependencies = [
+ "computer",
  "parser",
+]
+
+[[package]]
+name = "day5"
+version = "0.1.0"
+dependencies = [
+ "computer",
+ "parser",
+]
+
+[[package]]
+name = "day7"
+version = "0.1.0"
+dependencies = [
+ "computer",
+ "itertools",
+ "parser",
+]
+
+[[package]]
+name = "either"
+version = "1.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
+
+[[package]]
+name = "itertools"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
+dependencies = [
+ "either",
 ]
 
 [[package]]
 name = "parser"
 version = "0.1.0"
+
+[[package]]
+name = "text_io"
+version = "0.1.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4d8d3ca3b06292094e03841d8995e910712d2a10b5869c8f9725385b29761115"
