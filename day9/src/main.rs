@@ -9,5 +9,5 @@ fn main() {
 
     let mut code = Computer::new(reseted_memory);
     code.process(2, false);
-    //println!("{}", code.get_output());
+    println!("{}", code.get_output());
 }
