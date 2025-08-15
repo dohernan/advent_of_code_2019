@@ -1,3 +1,5 @@
+use std::io;
+
 #[derive(Default)]
 pub struct Computer {
     pub memory: Vec<i64>,
@@ -9,6 +11,7 @@ pub struct Computer {
     phase_set: bool,
     status: Status,
     relative_base: i64,
+    pub is_automatic_input: bool,
 }
 
 #[derive(Default, Clone, Copy, PartialEq)]
@@ -143,6 +146,7 @@ impl Computer {
             phase_set: false,
             status: Status::Halt,
             relative_base: 0,
+            is_automatic_input: true,
         }
     }
 
@@ -212,8 +216,22 @@ impl Computer {
             Instruction::Input(a) => {
                 let input_value = if self.pointer == 0 && self.phase_set {
                     self.phase_setting
-                } else {
+                } else if self.is_automatic_input {
                     self.input_instruction
+                } else {
+                    let mut input = String::new();
+                    let mut input_instruction = 0;
+                    println!("Instruction: ");
+                    match io::stdin().read_line(&mut input) {
+                        Ok(_) => {
+                            input_instruction = input.trim().parse().unwrap_or(5);
+                            input_instruction -= 5;
+                        }
+                        Err(error) => {
+                            println!("Error: {}", error);
+                        }
+                    }
+                    input_instruction
                 };
                 //println!("Input value: {}", input_value);
                 let b = self.get_value(a);

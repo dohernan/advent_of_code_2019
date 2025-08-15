@@ -37,7 +37,7 @@ struct Panel {
 }
 
 impl Panel {
-    fn paint(&mut self, color: i64) {
+    fn paint_color(&mut self, color: i64) {
         if color > 1 {
             panic!();
         }
@@ -67,7 +67,7 @@ struct Robot {
 impl Robot {
     fn default() -> Self {
         let grid = vec![vec![RefCell::new(Panel::default()); 100]; 100];
-        grid[50][50].borrow_mut().paint(1);
+        grid[50][50].borrow_mut().paint_color(1);
         Robot {
             position_x: 50,
             position_y: 50,
@@ -101,11 +101,11 @@ impl Robot {
             Direction::East => (self.position_x + 1, self.position_y),
         };
     }
-    pub fn paint(&mut self, color: i64) {
-        (*self.grid[self.position_y][self.position_x].borrow_mut()).paint(color);
+    pub fn paint_color(&mut self, color: i64) {
+        (*self.grid[self.position_y][self.position_x].borrow_mut()).paint_color(color);
     }
     pub fn paint_turn_and_advance(&mut self, color: i64, direction: i64) -> Result<(), String> {
-        self.paint(color);
+        self.paint_color(color);
         self.turn(direction);
         self.advance();
         Ok(())

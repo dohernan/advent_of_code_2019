@@ -1,5 +1,6 @@
 pub mod amplifier;
 pub mod computer;
+pub mod arcade;
 pub mod robot;
 pub use amplifier::Amplifier;
 pub use computer::Computer;
