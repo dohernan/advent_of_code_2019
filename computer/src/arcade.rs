@@ -1,5 +1,5 @@
 use crate::Computer;
-use std::{cell::RefCell, io};
+use std::{time,cell::RefCell, thread::sleep};
 
 #[derive(Default, Clone, Copy, PartialEq)]
 enum Tile {
@@ -141,14 +141,14 @@ impl Scenario {
             }
             if x == -1 {
                 println!("Score: {}", tile);
+                self.arcade.print_grid();
+                sleep(time::Duration::from_millis(100));
             } else {
                 let _ = self.arcade.set_tile_at(x, y, tile);
             }
 
             run_scenario = !self.computer.is_finished();
         }
-        self.print_grid();
-
         self.arcade.how_many_block()
     }
 
